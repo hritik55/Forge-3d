@@ -22,9 +22,9 @@ function Axes() {
       <Line points={xAxisPoints} color="red" lineWidth={2} />;
       <Line points={yAxisPoints} color="green" lineWidth={2} />;
       <Line points={zAxisPoints} color="blue" lineWidth={2} />;
-      <Html position={[0, 0, 0]}>
+      {/* <Html position={[0, 0, 0]}>
         <div style={{ color: "black", fontSize: "20px" }}>(0,0)</div>
-      </Html>
+      </Html> */}
     </mesh>
   );
 }
