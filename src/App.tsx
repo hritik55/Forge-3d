@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { Canvas, ThreeEvent, useThree } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { easing } from "maath";
+import { Canvas, ThreeEvent, useThree, useFrame } from "@react-three/fiber";
+import { OrbitControls, Sky, Bvh, Select } from "@react-three/drei";
 import RotatingCube from "./components/common/RotatingCube";
 import Axes from "./components/Axes";
 import Grid from "./components/Grid";
@@ -9,15 +10,27 @@ import PropertiesInterface from "./PropertiesInterface/PropertiesInterface";
 import * as THREE from "three";
 import MovementControls from "./MovementControls";
 import ArrowHelper from "./components/ArrowHelper";
-import Outline from "./components/Outline";
-import Plane from "./Primitives/Plane";
+// import Outline from "./components/Outline";
+import Plane from "./Primitives/PlaneObject";
 import ObjectInstanceInterface from "./ObjectInstanceInterface/ObjectInstanceInterface";
+import {
+  EffectComposer,
+  Selection,
+  Outline,
+  N8AO,
+  TiltShift2,
+  ToneMapping,
+} from "@react-three/postprocessing";
+import TransformControls from "./components/TransformControls";
+import MoveRotateScale from "./TransformControlInterface/TransformControlInterface";
 
 function App() {
   const [selectedObject, setSelectedObject] =
-    useState<THREE.Object3D<THREE.Object3DEventMap>>();
+    useState<THREE.Object3D<THREE.Object3DEventMap> | null>(null);
   const [isMoving, setIsMoving] = useState(false);
   const [objectList, setObjectList] = useState({ planes: [] });
+  const [mode, setMode] = useState("translate");
+  const [wireframe, setWireframe] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -49,16 +62,20 @@ function App() {
   }, [selectedObject]);
 
   const handleObjectSelect = (obj: ThreeEvent<MouseEvent>) => {
-    console.log(obj.eventObject);
     setSelectedObject(obj.eventObject);
   };
 
   return (
     <>
-      <PropertiesInterface selectedObject={selectedObject} />
+      {/* <PropertiesInterface selectedObject={selectedObject} /> */}
       <ObjectInstanceInterface
         objectList={objectList}
         setObjectList={setObjectList}
+      />
+      <MoveRotateScale
+        setMode={setMode}
+        wireframeMode={wireframe}
+        setWireframeMode={setWireframe}
       />
       <Canvas
         gl={{ antialias: true }}
@@ -70,7 +87,8 @@ function App() {
           alignItems: "center",
         }}
       >
-        <color attach="background" args={["#CFCFCF"]} />{" "}
+        {/* <Sky /> */}
+        <color attach="background" args={["#3a3b3d"]} />{" "}
         {/* Change the color code here */}
         <directionalLight
           position={[1, 1, 1]}
@@ -79,8 +97,8 @@ function App() {
         />
         <OrbitControls
           enableZoom
-          enableRotate
-          enablePan
+          enableRotate={!selectedObject}
+          enablePan={!selectedObject}
           enableDamping
           dampingFactor={0.05}
           maxZoom={2} // Set the upper limit for zoom here
@@ -96,17 +114,67 @@ function App() {
         <Axes />
         {/* <RotatingCube handleObjectSelect={handleObjectSelect} /> */}
         {selectedObject && <ArrowHelper selectedObject={selectedObject} />}
-        <Outline selectedObject={selectedObject} />
-        {objectList.planes.map((plane, idx) => {
-          return (
-            <Plane
-              key={plane.planeId}
-              handleObjectSelect={handleObjectSelect}
-            />
-          );
-        })}
+        {selectedObject && (
+          <TransformControls selectedObject={selectedObject} mode={mode} />
+        )}
+        <Selection>
+          <Effects />
+          {objectList.planes.map((plane, idx) => {
+            return (
+              <Select>
+                <Plane
+                  key={plane.planeId}
+                  handleObjectSelect={handleObjectSelect}
+                  wireframe={wireframe}
+                />
+              </Select>
+            );
+          })}
+        </Selection>
       </Canvas>
     </>
+  );
+}
+
+function Effects() {
+  const { size } = useThree();
+  // useFrame((state, delta) => {
+  //   easing.damp3(
+  //     state.camera.position,
+  //     [
+  //       state.pointer.x,
+  //       1 + state.pointer.y / 2,
+  //       8 + Math.atan(state.pointer.x * 2),
+  //     ],
+  //     0.3,
+  //     delta
+  //   );
+  //   state.camera.lookAt(state.camera.position.x * 0.9, 0, -4);
+  // });
+  return (
+    <EffectComposer
+      stencilBuffer
+      disableNormalPass
+      autoClear={false}
+      multisampling={8}
+    >
+      {/* <N8AO
+        halfRes
+        aoSamples={5}
+        aoRadius={0.4}
+        distanceFalloff={0.75}
+        intensity={1}
+      /> */}
+      <Outline
+        visibleEdgeColor="white"
+        hiddenEdgeColor="white"
+        blur
+        width={1000}
+        edgeStrength={100}
+      />
+      {/* <TiltShift2 samples={5} blur={0.1} />
+      <ToneMapping /> */}
+    </EffectComposer>
   );
 }
 

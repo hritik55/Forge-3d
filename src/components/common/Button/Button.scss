@@ -1,0 +1,47 @@
+.btn {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border: 1px solid black;
+
+  &.iconButton {
+    background-color: grey;
+    border: none;
+    color: #007bff;
+    padding: 0;
+    margin: 0;
+  }
+
+  &.iconButton:hover {
+    background-color: rgb(189, 189, 189);
+    color: #0056b3;
+  }
+
+  &.iconButton:active {
+    background-color: transparent;
+    color: #0056b3;
+  }
+
+  &.iconButton:focus {
+    background-color: transparent;
+    border: 1px solid #7fbdff;
+    color: #2273cf;
+  }
+
+  &.iconButton:disabled {
+    background-color: transparent;
+    color: #696969;
+  }
+
+  &.iconButton .icon {
+    width: 50px; /* Set the width of the SVG */
+    height: 50px; /* Set the height of the SVG */
+  }
+}
