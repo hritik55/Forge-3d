@@ -25,7 +25,13 @@ function Button({
     >
       {title && title}
       {iconId && (
-        <svg className="icon" preserveAspectRatio="xMidYMid meet">
+        <svg
+          className="icon"
+          viewBox="0 0 645 645"
+        
+          fill="#fff"
+         
+        >
           <use xlinkHref={`AppIcons.svg#${iconId}`} />
         </svg>
       )}

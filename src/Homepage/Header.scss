@@ -1,0 +1,14 @@
+header {
+    padding-top: 2.5rem;
+    text-align: center;
+    position: fixed;
+    background-color: bisque;
+    width: 100%;
+    nav {
+        display: flex;
+
+        ul {
+            list-style: none;
+        }
+    }
+}

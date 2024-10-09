@@ -1,0 +1,26 @@
+.control-item {
+      display: flex;
+      align-items: center;
+      
+      .dimensions {
+        color: #509dd1;
+        background-color: #5c5a5a;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 0.2rem;
+        padding: 0.5rem 0.4rem;
+
+        .control-dimension {
+          background-color: #4b4949;
+        }
+
+        input {
+          all: unset; /* Reset all styles */
+          color: #c0c0c0;
+          max-width: 2rem;
+          padding: 0.2rem;
+        }
+        
+      }
+
+    }

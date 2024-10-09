@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import DimensionInput from "./DimensionInput";
 import "./PropertiesInterface.scss";
 
 function PropertiesInterface({ selectedObject }) {
@@ -13,16 +14,21 @@ function PropertiesInterface({ selectedObject }) {
         <div className="control-panel-header">Properties</div>
         <div className="control-panel-body">
           <div className="control-panel-item">
-            <label>Position</label>
-            <input type="text" value={selectedObject?.position.x} />
-          </div>
-          <div className="control-panel-item">
-            <label>Rotation</label>
-            <input type="text" />
-          </div>
-          <div className="control-panel-item">
-            <label>Scale</label>
-            <input type="text" />
+            <DimensionInput
+              label={"Position"}
+              selectedObject={selectedObject}
+              transformProperty={"position"}
+            />
+            <DimensionInput
+              label={"Rotation"}
+              selectedObject={selectedObject}
+              transformProperty={"rotation"}
+            />
+            <DimensionInput
+              label={"Scale"}
+              selectedObject={selectedObject}
+              transformProperty={"scale"}
+            />
           </div>
         </div>
       </div>
