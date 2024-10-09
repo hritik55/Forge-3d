@@ -67,7 +67,7 @@ function App() {
 
   return (
     <>
-      {/* <PropertiesInterface selectedObject={selectedObject} /> */}
+      <PropertiesInterface selectedObject={selectedObject} />
       <ObjectInstanceInterface
         objectList={objectList}
         setObjectList={setObjectList}
@@ -81,10 +81,8 @@ function App() {
         gl={{ antialias: true }}
         style={{
           height: "100vh",
-          width: "90vw",
-          display: "flex",
-          justifyContent: "content",
-          alignItems: "center",
+          width: "100vw",
+         
         }}
       >
         {/* <Sky /> */}
