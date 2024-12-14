@@ -1,3 +1,10 @@
 .interface-container {
   padding: 20px 50px;
+  position: fixed;
+  display: flex;
+  margin-left: 18%;
+  z-index: 99;
+  bottom: 2rem;
+  width: 40%;
+  background-color: black;
 }

@@ -1,39 +1,40 @@
 import "./Button.scss";
+import Icon from "../Icon/Icon";
 type buttonProps = {
-  iconId: string;
+  iconName?: string;
   label: string;
   onClick: () => void;
   variant?: string;
   title?: string;
   children?: React.ReactNode;
+  active: boolean;
 };
 
 function Button({
   label,
-  iconId,
+  iconName,
   onClick,
   variant = "",
   title,
   children,
+  active,
 }: buttonProps) {
   return (
     <button
-      className={`btn ${iconId && "iconButton"} ${variant}`}
+      className={`btn ${iconName ? "iconButton" : ""} ${variant} ${
+        active ? "active" : ""
+      }`}
       title={title || label}
       onClick={onClick}
       aria-label={title || label}
     >
-      {title && title}
-      {iconId && (
-        <svg
-          className="icon"
-          viewBox="0 0 645 645"
-        
-          fill="#fff"
-         
-        >
-          <use xlinkHref={`AppIcons.svg#${iconId}`} />
-        </svg>
+      {iconName ? (
+        <>
+          <Icon type={iconName} />
+          <span>{title}</span>
+        </>
+      ) : (
+        <span>{title}</span>
       )}
       {children}
     </button>

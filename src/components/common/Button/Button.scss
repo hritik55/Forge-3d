@@ -12,40 +12,45 @@
   border: 1px solid black;
 
   &.iconButton {
-    background-color: grey;
+    background-color: transparent;
     border: none;
-    color: #007bff;
+    color: white;
     padding: 0;
     margin: 0;
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: 1.5rem;
+
+    .icon {
+      width: 24px; /* Set the width of the icon */
+      height: 24px; /* Set the height of the icon */
+      margin-right: 8px;
+    }
   }
 
   &.iconButton:hover {
-    background-color: rgb(189, 189, 189);
     color: #0056b3;
   }
 
   &.iconButton:active {
     background-color: transparent;
-    color: #0056b3;
+    //color: #0056b3;
   }
 
   &.iconButton:focus {
     background-color: transparent;
-    border: 1px solid #7fbdff;
-    color: #2273cf;
+    //border: 1px solid #7fbdff;
+    //color: #2273cf;
   }
 
   &.iconButton:disabled {
-    background-color: transparent;
     color: #696969;
+    cursor: default;
+    pointer-events: none;
   }
 
-  &.iconButton .icon {
-    width: 50px; /* Set the width of the SVG */
-    height: 50px; /* Set the height of the SVG */
-  }
-
-  svg {
-    fill: #007bff;
+  &.active {
+    //border: 1px solid #7fbdff;
   }
 }
