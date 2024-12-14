@@ -1,0 +1,20 @@
+.menu-popup {
+  position: absolute;
+  top: -108px;
+  z-index: 1000;
+  background-color: rgb(49, 46, 46);
+  border: 1px solid #727272;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform-origin: 0;
+  width: 200px;
+  display: flex;
+  flex-direction: column-reverse;
+  height: 0;
+  transition: height 0.3s ease;
+  overflow-y: hidden;
+
+  &.hidden {
+    height: auto;
+  }
+}

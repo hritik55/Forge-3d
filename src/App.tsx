@@ -23,12 +23,19 @@ import {
 } from "@react-three/postprocessing";
 import TransformControls from "./components/TransformControls";
 import MoveRotateScale from "./TransformControlInterface/TransformControlInterface";
+import { InterfaceProvider } from "./context/interfaceContext";
+import Cube from "./Primitives/Cube";
+import SphereObject from "./Primitives/SphereObject";
 
 function App() {
   const [selectedObject, setSelectedObject] =
     useState<THREE.Object3D<THREE.Object3DEventMap> | null>(null);
   const [isMoving, setIsMoving] = useState(false);
-  const [objectList, setObjectList] = useState({ planes: [] });
+  const [objectList, setObjectList] = useState({
+    planes: [],
+    cubes: [],
+    spheres: [],
+  });
   const [mode, setMode] = useState("translate");
   const [wireframe, setWireframe] = useState(false);
 
@@ -66,7 +73,7 @@ function App() {
   };
 
   return (
-    <>
+    <InterfaceProvider>
       <PropertiesInterface selectedObject={selectedObject} />
       <ObjectInstanceInterface
         objectList={objectList}
@@ -82,7 +89,6 @@ function App() {
         style={{
           height: "100vh",
           width: "100vw",
-         
         }}
       >
         {/* <Sky /> */}
@@ -121,8 +127,30 @@ function App() {
             return (
               <Select>
                 <Plane
-                  key={plane.planeId}
+                  key={plane.id}
                   handleObjectSelect={handleObjectSelect}
+                  wireframe={wireframe}
+                />
+              </Select>
+            );
+          })}
+          {objectList.cubes.map((cube) => {
+            return (
+              <Select>
+                <Cube
+                  key={cube.id}
+                  //handleObjectSelect={handleObjectSelect}
+                  wireframe={wireframe}
+                />
+              </Select>
+            );
+          })}
+          {objectList.spheres.map((sphere) => {
+            return (
+              <Select>
+                <SphereObject
+                  key={sphere.id}
+                  //handleObjectSelect={handleObjectSelect}
                   wireframe={wireframe}
                 />
               </Select>
@@ -130,7 +158,7 @@ function App() {
           })}
         </Selection>
       </Canvas>
-    </>
+    </InterfaceProvider>
   );
 }
 

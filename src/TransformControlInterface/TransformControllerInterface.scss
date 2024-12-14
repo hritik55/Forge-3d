@@ -1,7 +1,18 @@
 .transform-buttons-container {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
   position: absolute;
   z-index: 99;
   border: 1px solid #c9b4b4;
+  top: 4rem;
+}
+
+.solid_panel {
+  position: absolute;
+  right: 10rem;
+  z-index: 100;
+  display: flex;
+  background-color: black;
 }

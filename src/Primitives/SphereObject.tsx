@@ -1,16 +1,16 @@
-import { Box } from "@react-three/drei";
+import { Sphere } from "@react-three/drei";
 import * as THREE from "three";
 
-function Cube({ wireframe = false }) {
+function SphereObject({ wireframe = false }) {
   return (
-    <Box args={[1, 1, 1]}>
+    <Sphere args={[1, 32, 32]}>
       <meshStandardMaterial
         color="blue"
         side={THREE.DoubleSide}
         wireframe={wireframe}
       />
-    </Box>
+    </Sphere>
   );
 }
 
-export default Cube;
+export default SphereObject;
